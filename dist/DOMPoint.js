@@ -1,3 +1,4 @@
+import { DOMMatrixReadOnly } from './DOMMatrix.js';
 const x_ = Symbol('x');
 const y_ = Symbol('y');
 const z_ = Symbol('z');
@@ -25,15 +26,15 @@ export class DOMPointReadOnly {
     get w() {
         return this[w_];
     }
-    matrixTransform(_matrix) {
-        throw new Error('matrixTransform is not implemented yet.');
-        // TODO
-        // let result = new this.constructor(this)
-        //const x
-        //const y
-        //const z
-        //const w
-        // return result
+    matrixTransform(matrix = new DOMMatrixReadOnly()) {
+        if (!(matrix instanceof DOMMatrixReadOnly))
+            throw new Error('The argument to matrixTransform must be an instance of DOMMatrixReadOnly');
+        const m = matrix;
+        const x = this[x_];
+        const y = this[y_];
+        const z = this[z_];
+        const w = this[w_];
+        return new DOMPoint(m.m11 * x + m.m21 * y + m.m31 * z + m.m41 * w, m.m12 * x + m.m22 * y + m.m32 * z + m.m42 * w, m.m13 * x + m.m23 * y + m.m33 * z + m.m43 * w, m.m14 * x + m.m24 * y + m.m34 * z + m.m44 * w);
     }
     toJSON() {
         return {

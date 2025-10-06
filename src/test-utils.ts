@@ -40,3 +40,16 @@ export function expectMatricesEqual(
 	if (!skipIsIdentityCheck) expect(mat1.isIdentity).toBe(mat2.isIdentity)
 	if (!epsilon && !skipStringCheck) expect(mat1.toString()).toEqual(mat2.toString())
 }
+
+export function expectPointsEqual(
+	point1: DOMPointReadOnly,
+	point2: DOMPointReadOnly,
+	epsilon = 0,
+	skipJsonCheck = false,
+) {
+	expect(point1.x - point2.x).toBeLessThanOrEqual(epsilon)
+	expect(point1.y - point2.y).toBeLessThanOrEqual(epsilon)
+	expect(point1.z - point2.z).toBeLessThanOrEqual(epsilon)
+	expect(point1.w - point2.w).toBeLessThanOrEqual(epsilon)
+	if (!epsilon && !skipJsonCheck) expect(point1.toJSON()).toEqual(point2.toJSON())
+}
