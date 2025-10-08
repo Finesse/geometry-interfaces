@@ -19,7 +19,7 @@ export declare class DOMPointReadOnly {
         z: number;
         w: number;
     };
-    static fromPoint(other: DOMPointReadOnly): DOMPointReadOnly;
+    static fromPoint(other?: DOMPointInit): DOMPointReadOnly;
 }
 export declare class DOMPoint extends DOMPointReadOnly {
     get x(): number;

@@ -1,5 +1,5 @@
 import {DOMMatrix} from './DOMMatrix.js'
-import {expectMatricesEqual} from './test-utils.js'
+import {expectMatricesEqual, expectPointsEqual} from './test-utils.js'
 import {toIdentity} from './utilities.js'
 
 // TODO move type def to @lume/cli, map @types/jest's `expect` type into the
@@ -561,5 +561,20 @@ describe('DOMMatrix', () => {
 		nativeMat.rotateSelf(10, 20, 30)
 
 		expectMatricesEqual(polyfillMat, nativeMat, epsilon)
+	})
+
+	it('transformPoint', () => {
+		const polyfillMat = new DOMMatrix([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+		const nativeMat = new window.DOMMatrix([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+
+		let polyfillPnt = polyfillMat.transformPoint(new DOMPointReadOnly(1, 2, 3, 4))
+		let nativePnt = nativeMat.transformPoint(new window.DOMPointReadOnly(1, 2, 3, 4))
+
+		expectPointsEqual(polyfillPnt, nativePnt)
+
+		polyfillPnt = polyfillMat.transformPoint()
+		nativePnt = nativeMat.transformPoint()
+
+		expectPointsEqual(polyfillPnt, nativePnt)
 	})
 })

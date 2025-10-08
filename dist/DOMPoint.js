@@ -8,7 +8,7 @@ export class DOMPointReadOnly {
     [y_] = 0;
     [z_] = 0;
     [w_] = 1;
-    constructor(x = 0, y = 0, z = 0, w = 0) {
+    constructor(x = 0, y = 0, z = 0, w = 1) {
         this[x_] = Number(x);
         this[y_] = Number(y);
         this[z_] = Number(z);
@@ -45,6 +45,9 @@ export class DOMPointReadOnly {
         };
     }
     static fromPoint(other) {
+        if (!other) {
+            return new this();
+        }
         return new this(other.x, other.y, other.z, other.w);
     }
 }
